@@ -1,7 +1,7 @@
 ---
     - name: Upload .tar.gz file containing binaries from local storage
       copy:
-        src: "elastic_64.tar.gz"
+        src: "elasticsearch-{{ elastic_version }}-linux-x86_64.tar.gz"
         dest: "/tmp/elastic_64.tar.gz"
       register: download_elastic
       until: download_elastic is succeeded
