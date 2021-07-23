@@ -28,3 +28,22 @@
         dest: /etc/profile.d/elk.sh
         mode: 0755
       tags: elastic
+    - name: Ensure user elastic exists
+      user:
+        user: elastic
+        group: root
+        uid: 2001
+        password: "{{ 'password' | password_hash('sha512') }}"
+        state: present
+    - name: Set own to elastic directory
+      file:
+         path: /opt/elastic/
+         recurse: yes
+         state: directory
+         owner: elastic
+         mode: 0777
+      tags: Set_own
+    - name: Start service Elastic
+      when: ansible_os_family == "RedHat"
+      become_user: elastic
+      shell: cd /opt/elastic/7.10.1/bin && ./elasticsearch -d
