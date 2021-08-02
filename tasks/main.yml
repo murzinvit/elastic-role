@@ -57,5 +57,5 @@
     - name: Start Elasticsearch
       become_user: elastic
       become_method: su
-      shell: /opt/elastic/7.10.1/bin/elasticsearch -d
+      shell: "{{ elastic_home }}/bin/elasticsearch -d"
 
